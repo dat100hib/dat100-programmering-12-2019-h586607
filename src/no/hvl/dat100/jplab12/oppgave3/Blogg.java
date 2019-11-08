@@ -6,45 +6,89 @@ import no.hvl.dat100.jplab12.oppgave1.*;
 public class Blogg {
 
 	// TODO: objektvariable 
-
+	private int nesteLedig;
+	private Innlegg[] innleggtabell;
+	
 	public Blogg() {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		this.innleggtabell = new Innlegg[20];
+		this.nesteLedig = 0;
+		
 	}
 
 	public Blogg(int lengde) {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		innleggtabell = new Innlegg[lengde];
 	}
 
 	public int getAntall() {
-		throw new UnsupportedOperationException(TODO.method());
+		int antall = 0;
+		for(Innlegg innlegg : innleggtabell) {
+			if (innlegg != null) {
+				antall++;
+			}
+		}
+		return antall;
 	}
 	
 	public Innlegg[] getSamling() {
-		throw new UnsupportedOperationException(TODO.method());
+		return innleggtabell;
 
 	}
 	
 	public int finnInnlegg(Innlegg innlegg) {
-
-		throw new UnsupportedOperationException(TODO.method());
+		int innleggPos = -1;
+		for(int i = 0; i < innleggtabell.length; i++) {
+			if(innlegg.erLik(innleggtabell[i])) {
+				innleggPos = i;
+				break;
+			}
+		}
+		return innleggPos;
+		
+		
 	}
 
 	public boolean finnes(Innlegg innlegg) {
-		throw new UnsupportedOperationException(TODO.method());
+		boolean finnes = false;
+		for(Innlegg innleggTab : innleggtabell) {
+			if(innleggTab != null && innleggTab.getId() == innlegg.getId()) {
+				finnes = true;
+				break;
+			}
+		}
+		return finnes;
 	}
 
 	public boolean ledigPlass() {
-		throw new UnsupportedOperationException(TODO.method());
+		boolean ledigPlass = false;
+		for(Innlegg innlegg : innleggtabell) {
+			if(innlegg == null) {
+				ledigPlass = true;
+				break;
+			}
+		}
+		return ledigPlass;
 
 	}
 	
 	public boolean leggTil(Innlegg innlegg) {
-
-		throw new UnsupportedOperationException(TODO.method());
+		
+		boolean lagtTil = false;
+		if(!finnes(innlegg) && ledigPlass()) {
+			innleggtabell[nesteLedig] = innlegg;
+			lagtTil = true;
+			nesteLedig++;
+		}
+		return lagtTil;
 	}
 	
 	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
+		String str = getAntall() + "\n";
+		for(Innlegg innlegg : innleggtabell) {
+			if(innlegg != null) {
+				str = str + innlegg.toString();
+			}
+		}
+		return str;
 	}
 
 	// valgfrie oppgaver nedenfor
